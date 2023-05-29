@@ -1,9 +1,9 @@
+import {useEffect} from "react";
 import {Navigate, Route, Routes} from "react-router-dom";
 
 import {MainLayout} from "./layout";
-import {MoviesPage} from "./pages";
+import {MoviesPage, HomePage, GenresPage} from "./pages";
 import {useAppDispatch} from "./hooks";
-import {useEffect} from "react";
 import {movieActions} from "./redux/slices";
 
 
@@ -16,9 +16,12 @@ const App = () => {
 
     return (
         <Routes>
-            <Route path={'/'} element={<MainLayout/>}/>
-            <Route index element={<Navigate to={'movies'}/>}/>
-            <Route path={'movies'} element={<MoviesPage/>}/>
+            <Route path={'/'} element={<MainLayout/>}>
+                <Route index element={<Navigate to={'home'}/>}/>
+                <Route path={'home'} element={<HomePage/>}/>
+                <Route path={'movies'} element={<MoviesPage/>}/>
+                <Route path={'genres'} element={<GenresPage/>}/>
+            </Route>
         </Routes>
     );
 }
