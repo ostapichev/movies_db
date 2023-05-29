@@ -1,25 +1,25 @@
-import axios from 'axios';
+import {Navigate, Route, Routes} from "react-router-dom";
 
-import {options, urls} from "./constants";
+import {MainLayout} from "./layout";
+import {MoviesPage} from "./pages";
+import {useAppDispatch} from "./hooks";
+import {useEffect} from "react";
+import {movieActions} from "./redux/slices";
 
 
 const App = () => {
-    const {url, params, headers} = options;
+    const dispatch = useAppDispatch();
 
-    axios.get(`${url}${urls.movies}`, {params, headers})
-        .then((response) => {
-            console.log(response.data);
-        })
-        .catch((error) => {
-            console.error(error);
-        });
-
-
+    useEffect(() => {
+        dispatch(movieActions.getAll())
+    }, [dispatch]);
 
     return (
-        <div>
-            App
-        </div>
+        <Routes>
+            <Route path={'/'} element={<MainLayout/>}/>
+            <Route index element={<Navigate to={'movies'}/>}/>
+            <Route path={'movies'} element={<MoviesPage/>}/>
+        </Routes>
     );
 }
 
