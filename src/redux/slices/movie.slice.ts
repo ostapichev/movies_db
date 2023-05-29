@@ -1,7 +1,8 @@
-import {IMovie, IMovieResponse, IResults} from "../../interfaces";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {movieService} from "../../services";
 import {AxiosError} from "axios";
+
+import {IMovie, IDataResponse, IResults} from "../../interfaces";
+import {movieService} from "../../services";
 
 
 interface IState {
@@ -12,11 +13,11 @@ const initialState: IState = {
     movies: []
 }
 
-const getAll = createAsyncThunk<IMovie[],  void>(
+const getAll = createAsyncThunk<IMovie[], void>(
     'movieSlice/getAll',
     async (_, {rejectWithValue}) => {
         try {
-             const {data}: IMovieResponse = await movieService.getAll();
+             const {data}: IDataResponse = await movieService.getAll();
              const {results}: IResults  = data;
              return results;
         } catch (e) {
@@ -24,7 +25,7 @@ const getAll = createAsyncThunk<IMovie[],  void>(
              return rejectWithValue(err.response.data);
         }
     }
-)
+);
 
 const slice = createSlice({
     name: 'movieSlice',

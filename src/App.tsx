@@ -4,7 +4,7 @@ import {Navigate, Route, Routes} from "react-router-dom";
 import {MainLayout} from "./layout";
 import {MoviesPage, HomePage, GenresPage} from "./pages";
 import {useAppDispatch} from "./hooks";
-import {movieActions} from "./redux/slices";
+import {genreActions, movieActions} from "./redux/slices";
 
 
 const App = () => {
@@ -13,6 +13,10 @@ const App = () => {
     useEffect(() => {
         dispatch(movieActions.getAll())
     }, [dispatch]);
+
+    useEffect(() => {
+        dispatch(genreActions.getAll())
+    }, [dispatch])
 
     return (
         <Routes>

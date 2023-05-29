@@ -1,9 +1,13 @@
-import React from 'react';
+import {FC} from 'react';
 
-const GenresPage = () => {
+import {Genres} from "../../components";
+
+
+const GenresPage: FC = () => {
+
     return (
         <div>
-            GenresPage
+            <Genres/>
         </div>
     );
 };

@@ -1,6 +1,8 @@
 import {FC} from 'react';
+
 import {useAppSelector} from "../../hooks";
 import {Movie} from "../Movie/Movie";
+
 
 const Movies: FC = () => {
     const {movies} = useAppSelector(state => state.movieReducer);
