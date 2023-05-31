@@ -4,7 +4,6 @@ const urls = {
     genres: '/genre/movie/list'
 }
 
-
 export {
     baseURL,
     urls

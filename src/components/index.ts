@@ -3,3 +3,4 @@ export * from './Movie/Movie';
 export * from './Header/Header';
 export * from './Genres/Genres';
 export * from './Genre/Genre';
+export * from './Pagination/Pagination';

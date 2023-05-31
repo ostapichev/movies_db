@@ -11,12 +11,9 @@ const App = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(movieActions.getAll())
+        dispatch(movieActions.getAll());
+        dispatch(genreActions.getAll());
     }, [dispatch]);
-
-    useEffect(() => {
-        dispatch(genreActions.getAll())
-    }, [dispatch])
 
     return (
         <Routes>

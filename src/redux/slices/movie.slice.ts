@@ -6,11 +6,17 @@ import {movieService} from "../../services";
 
 
 interface IState {
-    movies: IMovie[]
+    movies: IMovie[],
+    prev_page: boolean,
+    next_page: boolean,
+    page: number
 }
 
 const initialState: IState = {
-    movies: []
+    movies: [],
+    prev_page: false,
+    next_page: true,
+    page: 1
 }
 
 const getAll = createAsyncThunk<IMovie[], void>(
@@ -18,7 +24,7 @@ const getAll = createAsyncThunk<IMovie[], void>(
     async (_, {rejectWithValue}) => {
         try {
              const {data}: IDataResponse = await movieService.getAll();
-             const {results}: IResults  = data;
+             const {results}: IResults = data;
              return results;
         } catch (e) {
              const err = e as AxiosError;

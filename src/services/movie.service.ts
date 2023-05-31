@@ -4,9 +4,10 @@ import {axiosService} from "./axios.service";
 import {options, urls} from "../constants";
 
 
-const headers = options.headers;
+const {headers, params} = options;
+
 const movieService = {
-    getAll: (): IRes<IMovie[]> => axiosService.get(urls.movies, {headers})
+    getAll: (): IRes<IMovie[]> => axiosService.get(urls.movies, {headers, params})
 }
 
 export {
