@@ -5,11 +5,14 @@ import {options, urls} from "../constants";
 
 
 const {headers, params} = options;
+const {page} = params;
 
+console.log(page)
 const movieService = {
-    getAll: (): IRes<IMovie[]> => axiosService.get(urls.movies, {headers, params})
+    getAll: (page = 1): IRes<IMovie[]> => axiosService.get(urls.movies, {headers, params}),
+    pagination: (): any => axiosService.get(urls.movies, {headers, params})
 }
 
 export {
-    movieService
+    movieService,
 };

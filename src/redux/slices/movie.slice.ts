@@ -3,6 +3,7 @@ import {AxiosError} from "axios";
 
 import {IMovie, IDataResponse, IResults} from "../../interfaces";
 import {movieService} from "../../services";
+import {options} from "../../constants";
 
 
 interface IState {
@@ -16,7 +17,7 @@ const initialState: IState = {
     movies: [],
     prev_page: false,
     next_page: true,
-    page: 1
+    page: +options.params.page
 }
 
 const getAll = createAsyncThunk<IMovie[], void>(
@@ -24,7 +25,8 @@ const getAll = createAsyncThunk<IMovie[], void>(
     async (_, {rejectWithValue}) => {
         try {
              const {data}: IDataResponse = await movieService.getAll();
-             const {results}: IResults = data;
+             const {results, page}: IResults = data;
+             console.log(page);
              return results;
         } catch (e) {
              const err = e as AxiosError;
@@ -36,11 +38,25 @@ const getAll = createAsyncThunk<IMovie[], void>(
 const slice = createSlice({
     name: 'movieSlice',
     initialState,
-    reducers: {},
+    reducers: {
+        setPaginate: (state, action) => {
+            const {page, results} = action.payload;
+            state.movies = results;
+            state.page = page;
+        },
+        nextPage(state) {
+                state.page += 1;
+                },
+        prevPage(state) {
+                state.page -= 1;
+                }
+
+    },
     extraReducers: builder => {
-        builder.addCase(getAll.fulfilled, (state, action) => {
-            state.movies = action.payload;
-        });
+        builder
+            .addCase(getAll.fulfilled, (state, action) => {
+                state.movies = action.payload;
+            })
     }
 });
 
