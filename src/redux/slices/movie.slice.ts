@@ -43,13 +43,8 @@ const slice = createSlice({
             const {page, results} = action.payload;
             state.movies = results;
             state.page = page;
-        },
-        nextPage(state) {
-                state.page += 1;
-                },
-        prevPage(state) {
-                state.page -= 1;
-                }
+        }
+
 
     },
     extraReducers: builder => {
