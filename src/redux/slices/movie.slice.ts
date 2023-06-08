@@ -22,11 +22,12 @@ const initialState: IState = {
 
 const getAll = createAsyncThunk<IMovie[], void>(
     'movieSlice/getAll',
-    async (_, {rejectWithValue}) => {
+    async (_, {rejectWithValue, getState}) => {
         try {
+             const state = getState() as { movieSlice: IState };
              const {data}: IDataResponse = await movieService.getAll();
-             const {results, page}: IResults = data;
-             console.log(page);
+             const {results, page: responsePage}: IResults = data;
+             console.log(responsePage);
              return results;
         } catch (e) {
              const err = e as AxiosError;
@@ -38,13 +39,7 @@ const getAll = createAsyncThunk<IMovie[], void>(
 const slice = createSlice({
     name: 'movieSlice',
     initialState,
-    reducers: {
-        setPaginate: (state, action) => {
-            const {page, results} = action.payload;
-            state.movies = results;
-            state.page = page;
-        }
-    },
+    reducers: {},
     extraReducers: builder => {
         builder
             .addCase(getAll.fulfilled, (state, action) => {
