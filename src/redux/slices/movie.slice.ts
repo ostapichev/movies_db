@@ -44,8 +44,6 @@ const slice = createSlice({
             state.movies = results;
             state.page = page;
         }
-
-
     },
     extraReducers: builder => {
         builder
